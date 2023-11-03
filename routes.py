@@ -6,6 +6,25 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 from app import app
 
+
+@app.after_request
+def apply_csp(response):
+    # Generate a random nonce value for the CSP policy
+    import secrets
+    nonce = secrets.token_hex(16)  # Generate a random 16-character nonce
+
+    # This policy allows scripts and styles from the same origin
+    # and blocks all object sources, except for 'trusted_scripts.js' using the nonce.
+    csp_policy = (
+        f"default-src 'self'; "
+        f"script-src 'self' 'nonce-{nonce}'; "
+        f"style-src 'self'; "  # Allow styles from the same origin
+        "object-src 'none';"
+    )
+
+    response.headers['Content-Security-Policy'] = csp_policy
+    return response
+
 @app.route('/')
 def index():
     messages = Message.query.order_by(Message.date_posted.desc()).all()
