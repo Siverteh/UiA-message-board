@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a New Message | University of Agder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #8A0A0B;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            max-width: 775px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button, input[type="submit"] {
+            display: block;
+            width: 30%;
+            padding: 15px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #a51c30; /* University's red color */
+            color: #fff;
+            cursor: pointer;
+            margin: 0 auto;
+        }
+        button:hover {
+            background: #881920;
+        }
+        a {
+            text-decoration: none;
+            color: #a51c30; /* University's red color */
+            margin-top: 20px;
+            display: inline-block;
+        }
+        .flash-message {
+            background: #e74c3c;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 style="text-align: center">Create a New Message for University of Agder</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('create_message') }}" method="post">
+        <div>
+            <label for="title">Subject:</label>
+            <input type="text" id="title" name="title" placeholder="Enter Message Subject" required>
+        </div>
+        <div>
+            <label for="content">Message:</label>
+            <textarea id="content" name="content" rows="10" placeholder="Enter Message Content" required></textarea>
+        </div>
+        <button type="submit">Publish Message</button>
+    </form>
+
+    <a href="{{ url_for('index') }}" style="text-align: center; display: block; margin-top: 20px;">Return to Message Board</a>
+</div>
+
+</body>
+</html>

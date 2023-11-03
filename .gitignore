@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# If you're using a virtual environment
+env/
+venv/
+.env
+
+# Other files and directories
+.DS_Store
+.idea/
+*.swp
