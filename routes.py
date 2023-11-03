@@ -6,7 +6,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 from app import app
 
-
 @app.after_request
 def apply_csp(response):
     # Generate a random nonce value for the CSP policy
@@ -18,7 +17,7 @@ def apply_csp(response):
     csp_policy = (
         f"default-src 'self'; "
         f"script-src 'self' 'nonce-{nonce}'; "
-        f"style-src 'self'; "  # Allow styles from the same origin
+        f"style-src 'self' 'unsafe-inline'; "  # Allow styles from the same origin
         "object-src 'none';"
     )
 

