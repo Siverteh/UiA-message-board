@@ -5,95 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Message</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #8A0A0B;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-            width: 60%;
-            max-width: 500px;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-        input, textarea {
-            padding: 12px 10px;
-            border: 1px solid #333;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            width: 95%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        button, input[type="submit"] {
-            display: block;
-            width: 30%;
-            padding: 15px 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #8A0A0B;
-            color: #fff;
-            cursor: pointer;
-            margin: 0 auto;
-        }
-        button:hover, input[type="submit"]:hover {
-            background-color: #6B0809;
-        }
-        a {
-            text-align: center;
-            display: block;
-            margin-top: 20px;
-            color: #8A0A0B;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .flash-message {
-            background: #e74c3c;
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/trusted_stylesheet.css">
 </head>
-<body>
+<body class="edit-message-body">
 
-<div class="container">
-    <h1>Edit Message</h1>
+<div class="edit-message-container">
+    <h1 class="edit-message-h1">Edit Message</h1>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
-                <div class="flash-message">{{ message }}</div>
+                <div class="edit-message-flash-message">{{ message }}</div>
             {% endfor %}
         {% endif %}
     {% endwith %}
 
     <form action="{{ url_for('edit_message', message_id=message.id) }}" method="post">
         {{ form.hidden_tag() }}
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" placeholder="Enter Post Title" value="{{ message.title }}" required>
-        <label for="content">Content:</label>
-        <textarea id="content" name="content" rows="10" placeholder="Enter Post Content" required>{{ message.content }}</textarea>
-        <button type="submit">Update Post</button>
+        <label for="title" class="edit-message-label">Title:</label>
+        <input type="text" id="title" name="title" class="edit-message-input" placeholder="Enter Post Title" value="{{ message.title }}" required>
+        <label for="content" class="edit-message-label">Content:</label>
+        <textarea id="content" name="content" class="edit-message-textarea" rows="10" placeholder="Enter Post Content" required>{{ message.content }}</textarea>
+        <button type="submit" class="edit-message-submit">Update Post</button>
     </form>
 
-    <a href="{{ url_for('message', id=message.id) }}">Return to message</a>
+    <a href="{{ url_for('message', id=message.id) }}" class="edit-message-link">Return to message</a>
 </div>
 
 </body>

@@ -9,20 +9,18 @@ from app import app
 
 @app.after_request
 def apply_csp(response):
-    # Generate a random nonce value for the CSP policy
-    import secrets
-    nonce = secrets.token_hex(16)  # Generate a random 16-character nonce
-
     # This policy allows scripts and styles from the same origin
     # and blocks all object sources, except for 'trusted_scripts.js' using the nonce.
     csp_policy = (
-        f"default-src 'self'; "
-        f"script-src 'self' 'nonce-{nonce}'; "
-        f"style-src 'self'; "  # Allow styles from the same origin
+        f"default-src 'self';"
+        f"script-src 'self';"
+        f"style-src 'self';" 
         "object-src 'none';"
     )
 
     response.headers['Content-Security-Policy'] = csp_policy
+    response.headers['X-Content-Security-Policy'] = csp_policy
+    response.headers['X-WebKit-CSP'] = csp_policy
     return response
 
 @app.route('/')

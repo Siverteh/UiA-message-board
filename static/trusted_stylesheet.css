@@ -1,0 +1,474 @@
+/* homepage styling:*/
+
+.homepage-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.homepage-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 140px auto 40px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.homepage-post {
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.read-more-content {
+    display: none;
+}
+
+.homepage-post h2,
+.homepage-post p,
+.homepage-post .comment-box {
+    word-wrap: break-word; /* This breaks the word to prevent overflow */
+}
+
+.homepage-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #8A0A0B; /* University of Agder red color */
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.homepage-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #8A0A0B; /* University of Agder red color */
+    color: #fff;
+    transition: background 0.3s;
+}
+
+.homepage-button:hover {
+    background: #6B0809; /* Slightly darker red for hover */
+}
+
+.message-heading {
+    margin-top: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.comment-section {
+    margin-top: 20px;
+}
+
+.comment-box {
+    border: 1px solid #e1e1e1;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    word-break: break-all;
+}
+
+.comment-text {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.comment-meta {
+    display: block;
+    text-align: right;
+    color: #777;
+    margin-top: 5px;
+}
+
+.register-body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #8A0A0B;
+}
+
+.register-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    width: 60%;
+    max-width: 500px;
+}
+
+.register-title {
+    color: #333;
+    text-align: center;
+}
+
+.register-label, .register-input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.register-input, .register-textarea {
+    padding: 12px 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.register-button, .register-submit {
+    display: block;
+    width: 30%;
+    padding: 15px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8A0A0B;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.register-button:hover, .register-submit:hover {
+    background-color: #6B0809;
+}
+
+.register-link {
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+    color: #8A0A0B;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+.login-body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #8A0A0B;
+}
+
+.login-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    width: 60%;
+    max-width: 500px;
+}
+
+.login-title {
+    color: #333;
+    text-align: center;
+}
+
+.login-label, .login-input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.login-input, .login-textarea {
+    padding: 12px 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-button, .login-submit {
+    display: block;
+    width: 30%;
+    padding: 15px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8A0A0B;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.login-button:hover, .login-submit:hover {
+    background-color: #6B0809;
+}
+
+.login-link {
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+    color: #8A0A0B;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+.message-body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #8A0A0B;
+}
+
+.message-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 80px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.message-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.message-auth-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.message-button, .message-submit {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #8A0A0B;
+    color: #fff;
+    transition: background 0.3s;
+}
+
+.message-button:hover, .message-submit:hover {
+    background-color: #6B0809;
+}
+
+.message-post {
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+
+.message-post h2,
+.message-post p,
+.message-post .comment-box {
+    word-wrap: break-word; /* This breaks the word to prevent overflow */
+}
+
+.message-comment {
+    background: #f9f9f9;
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #e1e1e1;
+}
+
+.message-comment p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.message-comment small {
+    display: block;
+    margin-top: 10px;
+    color: #777;
+}
+
+.message-form {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #e1e1e1;
+    margin-bottom: 20px;
+}
+
+.message-form input[type="submit"], .message-form button {
+    background: #8A0A0B;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.message-form input[type="submit"]:hover, .message-form button:hover {
+    background-color: #6B0809;
+}
+
+.message-link {
+    color: #8A0A0B;
+}
+
+.message-link:hover {
+    text-decoration: underline;
+}
+
+.create-message-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #8A0A0B;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.create-message-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+}
+
+.create-message-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.create-message-input, .create-message-textarea {
+    width: 100%;
+    max-width: 775px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.create-message-button, .create-message-submit {
+    display: block;
+    width: 30%;
+    padding: 15px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #a51c30;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.create-message-button:hover {
+    background: #881920;
+}
+
+.create-message-link {
+    text-align: center; /* Center the text within the link */
+    display: block;
+    margin: 0 auto; /* Center the link horizontally */
+    margin-top: 20px; /* Add some spacing below the link */
+}
+
+.create-message-flash-message {
+    background: #e74c3c;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.edit-message-body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #8A0A0B;
+}
+
+.edit-message-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    width: 60%;
+    max-width: 500px;
+}
+
+.edit-message-h1 {
+    color: #333;
+    text-align: center;
+}
+
+.edit-message-label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.edit-message-input, .edit-message-textarea {
+    padding: 12px 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.edit-message-button, .edit-message-submit {
+    display: block;
+    width: 30%;
+    padding: 15px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8A0A0B;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.edit-message-button:hover, .edit-message-submit:hover {
+    background-color: #6B0809;
+}
+
+.edit-message-link {
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+    color: #8A0A0B;
+}
+
+.edit-message-link:hover {
+    text-decoration: underline;
+}
+
+.edit-message-flash-message {
+    background: #e74c3c;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
