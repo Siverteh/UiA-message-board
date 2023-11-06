@@ -1,7 +1,0 @@
-Username: siverteh, Password: Lexi12345!, Time: 2023-11-03 12:06:11.400604
-Username: PerArneDanske, Password: 12345, Time: 2023-11-03 12:06:58.089703
-Username: SecurityExpert, Password: !FJEFH3647OHKIH?#", Time: 2023-11-03 12:07:58.971068
-Username: NotSecurityExpert, Password: passord, Time: 2023-11-03 12:08:44.972230
-Username: OleElo123, Password: oijjpke, Time: 2023-11-03 12:09:06.594178
-Username: Tzanct, Password: oggabogga123, Time: 2023-11-03 12:09:26.778657
-
