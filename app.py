@@ -24,7 +24,7 @@ def run_app():
     with app.app_context():
         db.drop_all()
         db.create_all()
-    app.run(port=5000)
+    app.run(host='0.0.0.0', port=5000)
 
 # Import routes after initializing db and login_manager to avoid circular imports
 from routes import *
