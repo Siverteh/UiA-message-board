@@ -11,6 +11,13 @@
 
 <form method="post" class="login-container">
     <h2 class="login-title">Login:</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     {{ form.hidden_tag() }}
     <label class="login-label">Username:</label>
     {{ form.username(class='login-input') }}

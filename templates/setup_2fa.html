@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2FA Setup</title>
+    <link rel="stylesheet" href="../static/trusted_stylesheet.css">
+</head>
+<body class="login-body">
+
+<div class="login-container">
+    <h2 class="login-title">2-Factor Authentication Setup</h2>
+    <p>Please scan the QR code below with your authenticator app.</p>
+    <img src="data:image/png;base64,{{ qr_code_data }}" alt="2FA QR Code" class="login-qr">
+    <p>After scanning the QR code, enter the 2FA code from your app below to verify setup.</p>
+
+    <form method="post">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {{ form.hidden_tag() }}
+        <label class="login-label">Enter authenticator code:</label>
+        {{ form.totp_code(id="totp_code", class='login-input') }}
+        {{ form.submit(class='login-submit') }}
+    </form>
+
+    <a href="{{ url_for('index') }}" class="login-link">Cancel registration</a>
+</div>
+
+</body>
+</html>

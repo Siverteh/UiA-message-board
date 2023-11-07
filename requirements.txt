@@ -4,4 +4,8 @@ Flask-Login
 Jinja2
 Flask-WTF
 WTForms
-
+Flask-Bcrypt
+pytz
+pyotp
+qrcode[pil]
+Flask-Session
