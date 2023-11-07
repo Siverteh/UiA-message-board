@@ -11,15 +11,9 @@ def apply_csp(response):
     # This policy allows scripts and styles from the same origin
     # and blocks all object sources, except for 'trusted_scripts.js' using the nonce.
     csp_policy = (
-<<<<<<< HEAD
         f"default-src 'self';"
         f"script-src 'self';"
         f"style-src 'self';" 
-=======
-        f"default-src 'self'; "
-        f"script-src 'self' 'nonce-{nonce}'; "
-        f"style-src 'self' 'unsafe-inline'; "  # Allow styles from the same origin
->>>>>>> f93c94e9727e9d998c168027986efa11b180a2d8
         "object-src 'none';"
     )
 
