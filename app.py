@@ -53,4 +53,4 @@ app = create_app()
 
 # Run the application
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, ssl_context=('self-signed_ssl_certificate/localhost.crt', 'self-signed_ssl_certificate/localhost.key'))
