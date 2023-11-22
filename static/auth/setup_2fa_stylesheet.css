@@ -1,0 +1,101 @@
+/* Setup 2FA Page Styles */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.setup-2fa-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Viewport height */
+    background-color: #8A0A0B;
+}
+
+.setup-2fa-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in the width calculation */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distributes space evenly */
+    height: 100%;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.setup-2fa-title {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.setup-2fa-label, .setup-2fa-input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.setup-2fa-input, .setup-2fa-textarea {
+    padding: 12px 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.setup-2fa-submit {
+    display: block;
+    width: 30%;
+    padding: 15px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8A0A0B;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.setup-2fa-p {
+    text-align: center;
+}
+
+.setup-2fa-submit:hover {
+    background-color: #6B0809;
+}
+
+.setup-2fa-link {
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+    color: #8A0A0B;
+}
+
+
+
+.setup-2fa-link:hover {
+    text-decoration: underline;
+}
+
+.alert {
+    text-align: center;
+    color: white;
+    background-color: #dc3545;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+}
+
+.setup-2fa-container .alert {
+    margin: 0 auto 20px auto;
+    width: 95%;
+    max-width: 400px;
+}

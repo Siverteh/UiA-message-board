@@ -60,7 +60,7 @@ def register():
 @limiter.limit("5 per minute", methods=["POST"])
 def setup_2fa():
     #Nested function to generate QR code data for 2FA.
-    def _generate_qr_code_data(user):
+    def generate_qr_code(user):
         #Generates a TOTP URI used for creating the QR code.
         totp_uri = pyotp.totp.TOTP(user.totp_secret).provisioning_uri(
             user.username, issuer_name='University of Agder message board')
@@ -112,7 +112,7 @@ def setup_2fa():
         #If the submitted TOTP code is not valid notify the user and return to setup_2fa.html.
         if not totp.verify(form.totp_code.data):
             flash('Invalid 2FA code, please try again.', 'danger')
-            return render_template('auth/setup_2fa.html', form=form, qr_code_data=_generate_qr_code_data(new_user))
+            return render_template('auth/setup_2fa.html', form=form, qr_code_data=generate_qr_code(new_user))
 
         #Mark 2FA as set up for the user.
         new_user.is_2fa_setup = True
@@ -137,7 +137,7 @@ def setup_2fa():
         db.session.commit()
 
     # Render the page for GET requests or invalid POST submissions
-    qr_code_data = _generate_qr_code_data(new_user)
+    qr_code_data = generate_qr_code(new_user)
     return render_template('auth/setup_2fa.html', form=form, qr_code_data=qr_code_data)
 
 

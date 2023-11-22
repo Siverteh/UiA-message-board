@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ message.title }}</title>
-    <script src="../../static/trusted_scripts.js"></script>
-    <link rel="stylesheet" href="../../static/trusted_stylesheet.css">
+    <script src="../../static/messages/message_scripts.js"></script>
+    <link rel="stylesheet" href="../../static/messages/message_stylesheet.css">
 </head>
 <body class="message-body">
 
@@ -27,34 +27,49 @@
     </div>
 
     <!-- Comment Form -->
-    <div>
-        <h3>Leave a Comment</h3>
-        {% if current_user.is_authenticated %}
-            <form action="{{ url_for('message.message', id=message.id) }}" method="post" class="message-form">
-                {{ form.hidden_tag() }}
-                {{ form.content.label }}<br>
-                {{ form.content(style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px;") }}<br>
-                {{ form.submit(class="btn") }}
-            </form>
-        {% else %}
-            <p>You must <a href="{{ url_for('auth.login') }}" class="message-link">log in</a> to post a comment.</p>
-        {% endif %}
-    </div>
+    <!-- Comment Form Container -->
+<div class="comment-form-container">
+    <h3>Leave a Comment</h3>
+
+    {% if current_user.is_authenticated %}
+        <!-- Comment Form -->
+        <form action="{{ url_for('message.message', id=message.id) }}" method="post" class="comment-form">
+            {{ form.hidden_tag() }}
+
+            <!-- Comment Field -->
+            <div class="form-group">
+                {{ form.content(id="comment-content", class="comment-textarea", rows=4, placeholder="Enter your comment") }}
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="comment-submit-button">Post Comment</button>
+        </form>
+    {% else %}
+        <!-- Login Prompt for Unauthenticated Users -->
+        <p>You must <a href="{{ url_for('auth.login') }}" class="message-link">log in</a> to post a comment.</p>
+    {% endif %}
+</div>
+
+
 
     <!-- Display Comments -->
     <h3>Comments:</h3>
     {% for comment in comments %}
-        <div class="message-comment">
+    <div class="message-comment">
+        <div class="comment-content">
             <p>
                 <strong>{{ comment.author.username }}</strong>: {{ comment.content }}
-                {% if current_user.is_authenticated and current_user.id == comment.author_id %}
-                    <!-- Delete comment button -->
-                    <button id="delete-comment-{{ comment.id }}" data-comment-id="{{ comment.id }}" class="message-button">Delete</button>
-                {% endif %}
+                <small>Posted on {{ comment.date_posted.strftime('%Y-%m-%d') }}</small>
             </p>
-            <small>Posted on {{ comment.date_posted.strftime('%Y-%m-%d') }}</small>
         </div>
-    {% endfor %}
+        {% if current_user.is_authenticated and current_user.id == comment.author_id %}
+            <!-- Delete button in its own div for styling -->
+            <div class="comment-delete-button">
+                <button id="delete-comment-{{ comment.id }}" data-comment-id="{{ comment.id }}" class="message-button">Delete</button>
+            </div>
+        {% endif %}
+    </div>
+{% endfor %}
 </div>
 
 </body>

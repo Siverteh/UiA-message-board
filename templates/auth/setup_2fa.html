@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2FA Setup</title>
-    <link rel="stylesheet" href="../../static/trusted_stylesheet.css">
+    <link rel="stylesheet" href="../../static/auth/setup_2fa_stylesheet.css">
 </head>
-<body class="login-body">
+<body class="setup-2fa-body">
 
-<div class="login-container">
-    <h2 class="login-title">2-Factor Authentication Setup</h2>
-    <p>Please scan the QR code below with your authenticator app.</p>
+<div class="setup-2fa-container">
+    <h2 class="setup-2fa-title">2-Factor Authentication Setup</h2>
+    <p class="setup-2fa-p">Please scan the QR code below with your authenticator app.</p>
     <img src="data:image/png;base64,{{ qr_code_data }}" alt="2FA QR Code" class="login-qr">
-    <p>After scanning the QR code, enter the 2FA code from your app below to verify setup.</p>
+    <p class="setup-2fa-p">After scanning the QR code, enter the 2FA code from your app below to verify setup.</p>
 
     <form method="post">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -24,12 +24,12 @@
             {% endif %}
         {% endwith %}
         {{ form.hidden_tag() }}
-        <label class="login-label">Enter authenticator code:</label>
-        {{ form.totp_code(id="totp_code", class='login-input') }}
-        {{ form.submit(class='login-submit') }}
+        <label class="setup-2fa-label">Enter authenticator code:</label>
+        {{ form.totp_code(id="totp_code", class='setup-2fa-input') }}
+        {{ form.submit(class='setup-2fa-submit') }}
     </form>
 
-    <a href="{{ url_for('main.index') }}" class="login-link">Cancel registration</a>
+    <a href="{{ url_for('main.index') }}" class="setup-2fa-link">Cancel registration</a>
 </div>
 
 </body>

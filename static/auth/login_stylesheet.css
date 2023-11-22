@@ -1,0 +1,89 @@
+/* Login Form Styles */
+
+.login-body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #8A0A0B;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    width: 60%;
+    max-width: 500px;
+    margin: auto;
+}
+
+.login-title {
+    color: #333;
+    text-align: center;
+}
+
+.login-label, .login-input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.login-input, .login-textarea {
+    padding: 12px 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-button, .login-submit {
+    display: block;
+    width: 30%;
+    padding: 15px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8A0A0B;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.login-button:hover, .login-submit:hover {
+    background-color: #6B0809;
+}
+
+.login-link {
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+    color: #8A0A0B;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+/* Alert Message Styles */
+.alert {
+    text-align: center;
+    color: white;
+    background-color: #dc3545;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+}
+
+.login-container .alert {
+    margin: 0 auto 20px auto;
+    width: 95%;
+    max-width: 400px;
+}

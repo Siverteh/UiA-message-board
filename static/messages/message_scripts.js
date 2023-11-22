@@ -51,7 +51,7 @@ function toggleContent(id) {
 function deleteMessage(messageId) {
     const confirmDelete = window.confirm("Are you sure you want to delete this post?");
     if (confirmDelete) {
-        fetch(`/message/delete/${messageId}`, {
+        fetch(`/messages/message/delete/${messageId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ function deleteComment(event, commentId) {
     const confirmDelete = window.confirm("Are you sure you want to delete this comment?");
     if (confirmDelete) {
         // Your delete endpoint for comments. This also needs to be defined in your backend.
-        fetch(`/comment/delete/${commentId}`, {
+        fetch(`/messages/comment/delete/${commentId}`, {
             method: 'POST'
         })
         .then(response => {

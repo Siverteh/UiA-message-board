@@ -1,0 +1,68 @@
+/* homepage styling:*/
+
+.homepage-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.homepage-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 140px auto 40px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.homepage-post {
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.read-more-content {
+    display: none;
+}
+
+.homepage-post h2,
+.homepage-post p,
+.homepage-post .comment-box,
+.homepage-post span{
+    word-wrap: break-word; /* This breaks the word to prevent overflow */
+}
+
+.homepage-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #8A0A0B; /* University of Agder red color */
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.homepage-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #8A0A0B; /* University of Agder red color */
+    color: #fff;
+    transition: background 0.3s;
+}
+
+.homepage-button:hover {
+    background: #6B0809; /* Slightly darker red for hover */
+}

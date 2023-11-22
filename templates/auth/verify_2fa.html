@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify 2fa</title>
-    <link rel="stylesheet" href="../../static/trusted_stylesheet.css">
+    <link rel="stylesheet" href="../../static/auth/verify_2fa_stylesheet.css">
 </head>
-<body class="login-body">
+<body class="verify-2fa-body">
 
-<form method="post" class="login-container">
-    <h2 class="login-title">Confirm TOTP code:</h2>
+<form method="post" class="verify-2fa-container">
+    <h2 class="verify-2fa-title">Confirm TOTP code:</h2>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -19,10 +19,10 @@
         {% endif %}
     {% endwith %}
     {{ form.hidden_tag() }}
-    <label class="login-label">Enter authenticator Code:</label>
-    {{ form.totp_code(class='login-input') }}
-    {{ form.submit(class='login-submit') }}
-    <a href="{{ url_for('main.index') }}" class="login-link">Return to homepage</a>
+    <label class="verify-2fa-label">Enter authenticator Code:</label>
+    {{ form.totp_code(class='verify-2fa-input') }}
+    {{ form.submit(class='verify-2fa-submit') }}
+    <a href="{{ url_for('main.index') }}" class="verify-2fa-link">Return to homepage</a>
 </form>
 
 </body>

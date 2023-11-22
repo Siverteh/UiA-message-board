@@ -1,0 +1,121 @@
+/* Message Styles */
+
+.message-body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #8A0A0B;
+}
+
+.message-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 80px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.message-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.message-auth-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.message-button, .message-submit {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #8A0A0B;
+    color: #fff;
+    transition: background 0.3s;
+}
+
+.message-button:hover, .message-submit:hover {
+    background-color: #6B0809;
+}
+
+.message-post {
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+
+.message-post h2,
+.message-post p,
+.message-post .comment-box {
+    word-wrap: break-word; /* This breaks the word to prevent overflow */
+}
+
+/* Comment Styles */
+
+.comment-section {
+    margin-top: 20px;
+}
+
+.comment-box {
+    border: 1px solid #e1e1e1;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    word-break: break-all;
+}
+
+.comment-text {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.comment-meta {
+    display: block;
+    text-align: right;
+    color: #777;
+    margin-top: 5px;
+}
+
+.comment-form-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.comment-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.comment-submit-button {
+    padding: 10px 15px;
+    background-color: #8A0A0B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.comment-submit-button:hover {
+    background-color: #6B0809;
+}

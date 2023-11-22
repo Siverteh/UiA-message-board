@@ -31,16 +31,6 @@ def message(id):
     #Render the message page with the message, comment form, and comments.
     return render_template('messages/message.html', message=message, form=form, comments=comments)
 
-#Route for adding a new message.
-@message_bp.route('/add', methods=['POST'])
-def add():
-    title = request.form['title']
-    content = request.form['content']
-    message = Message(title=title, content=content)
-    db.session.add(message)
-    db.session.commit()
-    return redirect(url_for('main.index'))
-
 #Route for creating a message.
 @message_bp.route('/create_message', methods=['GET', 'POST'])
 @login_required
