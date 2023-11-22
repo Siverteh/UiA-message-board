@@ -39,11 +39,11 @@ function toggleContent(id) {
     const content = document.getElementById('content-' + id);
     const button = document.getElementById('toggle-' + id);
 
-    if (content.style.display === 'none') {
-        content.style.display = 'inline'; // or 'block' depending on your layout
+    if (content.style.display === 'none' || content.style.display === '') {
+        content.style.display = 'inline'; // Show the content inline
         button.textContent = 'Read Less';
     } else {
-        content.style.display = 'none';
+        content.style.display = 'none'; // Hide the content
         button.textContent = 'Read More';
     }
 }

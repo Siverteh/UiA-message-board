@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Message</title>
-    <link rel="stylesheet" href="../static/trusted_stylesheet.css">
+    <link rel="stylesheet" href="../../static/trusted_stylesheet.css">
 </head>
 <body class="edit-message-body">
 
@@ -20,7 +20,7 @@
         {% endif %}
     {% endwith %}
 
-    <form action="{{ url_for('edit_message', message_id=message.id) }}" method="post">
+    <form action="{{ url_for('message.edit_message', message_id=message.id) }}" method="post">
         {{ form.hidden_tag() }}
         <label for="title" class="edit-message-label">Title:</label>
         <input type="text" id="title" name="title" class="edit-message-input" placeholder="Enter Post Title" value="{{ message.title }}" required>
@@ -29,7 +29,7 @@
         <button type="submit" class="edit-message-submit">Update Post</button>
     </form>
 
-    <a href="{{ url_for('message', id=message.id) }}" class="edit-message-link">Return to message</a>
+    <a href="{{ url_for('message.message', id=message.id) }}" class="edit-message-link">Return to message</a>
 </div>
 
 </body>

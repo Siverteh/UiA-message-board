@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from app import db, login_manager, bcrypt
+from extensions import db, login_manager, bcrypt
 from flask_login import UserMixin
 import pyotp
 
@@ -8,12 +8,12 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, index=True, nullable=False)
     password_hash = db.Column(db.String(256), nullable=False)
-    messages = db.relationship('Message', backref='author', lazy=True)
-    comments = db.relationship('Comment', backref='author', lazy=True)  # relationship to Comment
     failed_attempts = db.Column(db.Integer, default=0)
     lock_until = db.Column(db.DateTime, default=None)
     totp_secret = db.Column(db.String(16))
     is_2fa_setup = db.Column(db.Boolean, default=False)
+    messages = db.relationship('Message', backref='author', lazy=True)
+    comments = db.relationship('Comment', backref='author', lazy=True)  # relationship to Comment
 
     #Sets the passowrd attribute as a write-only property
     @property

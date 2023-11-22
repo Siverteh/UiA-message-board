@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="../../static/trusted_stylesheet.css">
+    <script src="../../static/auth_scripts.js"></script>
+</head>
+<body class="register-body">
+
+<form method="post" class="register-container">
+    <h2 class="register-title">Register at University of Agder</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+        <label class="register-label">Username:</label>
+        {{ form.username(class='register-input') }}
+    </div>
+
+    <div class="form-group">
+        <label class="register-label">Password:</label>
+        {{ form.password(class='register-input', id='password') }}
+    </div>
+
+    <div class="form-group">
+        <label class="register-label">Confirm Password:</label>
+        {{ form.confirm(class='register-input', id='confirm-password') }}
+    </div>
+
+    <div id="password-criteria" class="password-criteria">
+        <p>Your password must:</p>
+        <ul>
+            <li id="criteria-length"><span class="criteria-icon">✘</span> Be at least 8 characters long</li>
+            <li id="criteria-lower"><span class="criteria-icon">✘</span> Contain at least 1 lowercase character</li>
+            <li id="criteria-upper"><span class="criteria-icon">✘</span> Contain at least 1 uppercase character</li>
+            <li id="criteria-number"><span class="criteria-icon">✘</span> Contain at least 1 number</li>
+            <li id="criteria-special"><span class="criteria-icon">✘</span> Contain at least 1 special character</li>
+            <li id="criteria-match"><span class="criteria-icon">✘</span> Match</li>
+
+        </ul>
+    </div>
+
+    <div class="form-group">
+        {{ form.submit(class='register-submit') }}
+    </div>
+
+    <a href="{{ url_for('main.index') }}" class="register-link">Return to homepage</a>
+</form>
+
+</body>
+</html>

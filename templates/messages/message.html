@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ message.title }}</title>
-    <script src="../static/trusted_scripts.js"></script>
-    <link rel="stylesheet" href="../static/trusted_stylesheet.css">
+    <script src="../../static/trusted_scripts.js"></script>
+    <link rel="stylesheet" href="../../static/trusted_stylesheet.css">
 </head>
 <body class="message-body">
 
@@ -14,9 +14,9 @@
     <div class="message-header">
         <h1>{{ message.title }}</h1>
         <div class="message-auth-buttons">
-            <a href="{{ url_for('index') }}"><button class="message-button">Back to Homepage</button></a>
+            <a href="{{ url_for('main.index') }}"><button class="message-button">Back to Homepage</button></a>
             {% if current_user.is_authenticated and current_user.id == message.author_id %}
-                <a href="{{ url_for('edit_message', message_id=message.id) }}"><button class="message-button">Edit Message</button></a>
+                <a href="{{ url_for('message.edit_message', message_id=message.id) }}"><button class="message-button">Edit Message</button></a>
                 <button id="delete-message-{{ message.id }}" data-message-id="{{ message.id }}" class="message-button">Delete</button>
             {% endif %}
         </div>
@@ -30,14 +30,14 @@
     <div>
         <h3>Leave a Comment</h3>
         {% if current_user.is_authenticated %}
-            <form action="{{ url_for('message', id=message.id) }}" method="post" class="message-form">
+            <form action="{{ url_for('message.message', id=message.id) }}" method="post" class="message-form">
                 {{ form.hidden_tag() }}
                 {{ form.content.label }}<br>
                 {{ form.content(style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px;") }}<br>
                 {{ form.submit(class="btn") }}
             </form>
         {% else %}
-            <p>You must <a href="{{ url_for('login') }}" class="message-link">log in</a> to post a comment.</p>
+            <p>You must <a href="{{ url_for('auth.login') }}" class="message-link">log in</a> to post a comment.</p>
         {% endif %}
     </div>
 

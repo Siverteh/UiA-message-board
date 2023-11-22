@@ -29,7 +29,8 @@
 
 .homepage-post h2,
 .homepage-post p,
-.homepage-post .comment-box {
+.homepage-post .comment-box,
+.homepage-post span{
     word-wrap: break-word; /* This breaks the word to prevent overflow */
 }
 
@@ -161,6 +162,44 @@
 
 .register-link:hover {
     text-decoration: underline;
+}
+
+.form-group {
+    position: relative; /* Add this to contain the absolute positioning of .password-criteria */
+}
+
+.password-criteria {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.password-criteria ul {
+    list-style: none; /* Remove default bullets */
+    padding-left: 0; /* Remove default padding */
+}
+
+.criteria-icon {
+    color: red; /* Default color for unmet criteria (red X) */
+    margin-right: 5px;
+}
+
+.criteria-met .criteria-icon {
+    color: green; /* Color for met criteria (green check) */
+}
+
+.criteria-met {
+    color: lightgray; /* Lighter color for met criteria text */
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
 }
 
 .login-body {

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a New Message | University of Agder</title>
-    <link rel="stylesheet" href="../static/trusted_stylesheet.css">
+    <link rel="stylesheet" href="../../static/trusted_stylesheet.css">
 </head>
 <body class="create-message-body">
 
@@ -20,7 +20,7 @@
         {% endif %}
     {% endwith %}
 
-    <form action="{{ url_for('create_message') }}" method="post">
+    <form action="{{ url_for('message.create_message') }}" method="post">
         <div>
             <label for="title" class="create-message-label">Subject:</label>
             <input type="text" id="title" name="title" class="create-message-input" placeholder="Enter Message Subject" required>
@@ -32,7 +32,7 @@
         <button type="submit" class="create-message-submit">Publish Message</button>
     </form>
 
-    <a href="{{ url_for('index') }}" class="create-message-link">Return to Message Board</a>
+    <a href="{{ url_for('main.index') }}" class="create-message-link">Return to Message Board</a>
 </div>
 
 </body>

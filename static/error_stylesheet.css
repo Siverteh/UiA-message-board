@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #8A0A0B;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.error-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 80%;
+    max-width: 500px;
+}
+h1 {
+    color: #333;
+}
+p {
+    color: #555;
+}
+.btn-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #8A0A0B; /* University of Agder red color */
+    color: #fff;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+.btn-primary:hover {
+    background-color: #6B0809;
+}

@@ -14,11 +14,11 @@
     <h1>Welcome to the University of Agder's Message Board</h1>
     <div class="auth-buttons-container">
         {% if current_user.is_authenticated %}
-            <a href="{{ url_for('create_message') }}"><button class="homepage-button">Post a New Message</button></a>
-            <a href="{{ url_for('logout') }}"><button class="homepage-button">Logout</button></a>
+            <a href="{{ url_for('message.create_message') }}"><button class="homepage-button">Post a New Message</button></a>
+            <a href="{{ url_for('auth.logout') }}"><button class="homepage-button">Logout</button></a>
         {% else %}
-            <a href="{{ url_for('login') }}"><button class="homepage-button">Login</button></a>
-            <a href="{{ url_for('register') }}"><button class="homepage-button">Register</button></a>
+            <a href="{{ url_for('auth.login') }}"><button class="homepage-button">Login</button></a>
+            <a href="{{ url_for('auth.register') }}"><button class="homepage-button">Register</button></a>
         {% endif %}
     </div>
 </div>
@@ -27,14 +27,12 @@
     <h3 class="message-heading">Messages:</h3>
     {% for message in messages %}
     <div class="homepage-post">
-        <h2><a href="{{ url_for('message', id=message.id) }}">{{ message.title }}</a></h2>
+        <h2><a href="{{ url_for('message.message', id=message.id) }}">{{ message.title }}</a></h2>
         <small>Posted by {{ message.author.username }} on {{ message.date_posted.strftime('%Y-%m-%d') }} | {{ message_comments[message.id]|length }} comments</small>
-        <p>{{ message.content[:150] }}
-            <span id="content-{{ message.id }}" style="display: none;">{{ message.content[150:] }}</span>
-        </p>
+        <p>{{ message.content[:150] }}<span id="content-{{ message.id }}" style="display: none;">{{ message.content[150:] }}</span></p>
         <button id="toggle-{{ message.id }}" data-message-id="{{ message.id }}" class="homepage-button">Read More</button>
         {% if current_user.is_authenticated %}
-            <a href="{{ url_for('message', id=message.id) }}" style="float: right;"><button class="homepage-button">Leave a Comment</button></a>
+            <a href="{{ url_for('message.message', id=message.id) }}" style="float: right;"><button class="homepage-button">Leave a Comment</button></a>
         {% else %}
             <small style="float: right;">Login to leave a comment.</small>
         {% endif %}

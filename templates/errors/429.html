@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Too Many Requests</title>
-    <link rel="stylesheet" href="../static/trusted_stylesheet.css">
+    <link rel="stylesheet" href="../../static/error_stylesheet.css">
 </head>
 <body>
-    <div class="rate-limit-container">
+    <div class="error-container">
         <h1>Too Many Requests</h1>
         <p>We're sorry, but you have sent too many requests to us recently. Please wait for a while before trying again.</p>
         <p>If you believe this is an error, please contact support.</p>
-        <a href="{{ url_for('index') }}" class="btn-primary">Return to Homepage</a>
+        <a href="{{ url_for('main.index') }}" class="btn-primary">Return to Homepage</a>
     </div>
 </body>
 </html>
