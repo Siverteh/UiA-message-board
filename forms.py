@@ -1,11 +1,15 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, EqualTo, Length, Regexp
+from wtforms.validators import DataRequired, EqualTo, Length, Regexp, Email
 
 #Registration form contains username, password, and confirm password fields
 class RegistrationForm(FlaskForm):
     #Username is a string field that is required to be filled out.
     username = StringField('Username', validators=[DataRequired()])
+
+    # Email is a string field that is required and must be a valid email address.
+    email = StringField('Email', validators=[DataRequired(), Email(message='Invalid email address.')])
+
     #Password is a password field that has to be filled out, be atleast 8 characters long, and must include atleast one uppercase, lowercase, digit, and special character
     password = PasswordField('Password', id='password', validators=[
     DataRequired(),
@@ -13,8 +17,10 @@ class RegistrationForm(FlaskForm):
     Length(min=8, message='Password must be at least 8 characters long'),
     Regexp(r'(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_])', message='Password must include atleast one uppercase, lowercase, digit, and special character')
     ])
+
     #Confirm is a password field that is required to be filled out.
     confirm = PasswordField('Confirm Password', validators=[DataRequired()])
+
     submit = SubmitField('Register')
 
 #Login form contains username and password fields.

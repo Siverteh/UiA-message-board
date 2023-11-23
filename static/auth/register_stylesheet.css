@@ -103,3 +103,14 @@
     font-size: 0.8em;
     margin-top: 5px;
 }
+
+/* Alert Message Styles */
+.alert {
+    text-align: center;
+    color: white;
+    background-color: #dc3545;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+}

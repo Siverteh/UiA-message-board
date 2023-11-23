@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask
 from config import Config
 from extensions import db, bcrypt, login_manager, limiter, migrate, session

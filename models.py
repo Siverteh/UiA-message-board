@@ -7,13 +7,15 @@ import pyotp
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, index=True, nullable=False)
-    password_hash = db.Column(db.String(256), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password_hash = db.Column(db.String(256), nullable=True)
+    google_id = db.Column(db.String(100), unique=True, nullable=True)
     failed_attempts = db.Column(db.Integer, default=0)
     lock_until = db.Column(db.DateTime, default=None)
     totp_secret = db.Column(db.String(16))
     is_2fa_setup = db.Column(db.Boolean, default=False)
     messages = db.relationship('Message', backref='author', lazy=True)
-    comments = db.relationship('Comment', backref='author', lazy=True)  # relationship to Comment
+    comments = db.relationship('Comment', backref='author', lazy=True)
 
     #Sets the passowrd attribute as a write-only property
     @property
@@ -51,6 +53,8 @@ class User(db.Model, UserMixin):
     #Sets TOTP secret for user.
     def set_totp_secret(self):
         self.totp_secret = pyotp.random_base32()
+
+
 
 #Returns user object from user ID
 @login_manager.user_loader

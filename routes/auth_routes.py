@@ -9,6 +9,8 @@ import base64
 import pytz
 from extensions import limiter
 from uuid import uuid4
+from authlib.integrations.flask_client import OAuth
+from flask import current_app as app
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -23,6 +25,77 @@ def format_datetime(dt):
     local_dt = dt.replace(tzinfo=pytz.utc).astimezone(LOCAL_TIMEZONE)
     return local_dt.strftime('%H:%M:%S')
 
+#Initialize OAuth
+oauth = OAuth(app)
+
+# Configure Google OAuth2 client
+google = oauth.register(
+    name='google',
+    client_id='989959871090-tto4coh3e2qa1kri3irtrg3v419ck7gj.apps.googleusercontent.com',
+    client_secret='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',
+    access_token_url='https://accounts.google.com/o/oauth2/token',
+    access_token_params=None,
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+    authorize_params=None,
+    api_base_url='https://www.googleapis.com/oauth2/v1/',
+    client_kwargs={'scope': 'openid email profile'},
+    jwks_uri='https://www.googleapis.com/oauth2/v3/certs'
+)
+
+@auth_bp.route('/login/google')
+def google_login():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    redirect_uri = url_for('auth.google_authorize', _external=True)
+    return google.authorize_redirect(redirect_uri)
+
+@auth_bp.route('/callback')
+def google_authorize():
+    def generate_unique_username(base_username):
+        username = base_username
+        counter = 1
+        while User.query.filter_by(username=username).first() is not None:
+            username = f"{base_username}_{counter}"
+            counter += 1
+        return username
+
+    token = google.authorize_access_token()
+    if not token:
+        flash('Access denied: reason={} error={}'.format(
+            request.args['error_reason'],
+            request.args['error_description']
+        ), 'danger')
+        return redirect(url_for('auth.login'))
+
+    resp = google.get('userinfo')
+    user_info = resp.json()
+    existing_user = User.query.filter_by(google_id=user_info['id']).first()
+
+    if existing_user:
+        # User exists, initiate the 2FA verification if it's set up
+        if existing_user.is_2fa_setup:
+            session['verify_2fa'] = True
+            session['username'] = existing_user.username
+            return redirect(url_for('auth.verify_2fa'))
+        else:
+            return redirect(url_for('auth.setup_2fa', user_id=existing_user.id))
+
+    # User doesn't exist, create a new one and redirect to 2FA setup
+    new_user = User(
+        username=generate_unique_username(user_info['name']),
+        email=user_info['email'],
+        google_id=user_info['id'],
+        # Initialize other necessary fields as required.
+    )
+    new_user.set_totp_secret()
+    db.session.add(new_user)
+    db.session.commit()
+
+    # Redirect to 2FA setup for the new user
+    return redirect(url_for('auth.setup_2fa', user_id=new_user.id))
+
+
+
 
 #Route to handle registration
 @auth_bp.route('/register', methods=['GET', 'POST'])
@@ -35,18 +108,27 @@ def register():
         return render_template('auth/register.html', form=form)
 
     if not form.validate_on_submit():
-        flash('Invalid password.', 'danger')
+        for fieldName in form.errors.items():
+            if fieldName[0] == "email":
+                flash("Invalid email", 'danger')
+            elif fieldName[0] == "password":
+                flash("Invalid password", 'danger')
         return render_template('auth/register.html', form=form)
 
     existing_user = User.query.filter_by(username=form.username.data).first()
+    existing_email = User.query.filter_by(email=form.email.data).first()
 
     if existing_user:
-        flash('Username already exists. Please choose a different one.', 'danger')
+        flash('Username already in use. Please choose a different one.', 'danger')
+        return render_template('auth/register.html', form=form)
+    elif existing_email:
+        flash('Email already in use. Please choose a different one.', 'danger')
         return render_template('auth/register.html', form=form)
 
     #Create a new User instance with the username from the form.
     new_user = User(username=form.username.data)
     new_user.hash_password = form.password.data
+    new_user.email = form.email.data
     new_user.set_totp_secret()
 
     db.session.add(new_user)

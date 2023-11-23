@@ -37,7 +37,7 @@
             <small style="float: right;">Login to leave a comment.</small>
         {% endif %}
         {% if current_user.is_authenticated and current_user.id == message.author_id %}
-            <button id="delete-message-{{ message.id }}" data-message-id="{{ message.id }}" class="message-button">Delete</button>
+            <button id="delete-message-{{ message.id }}" data-message-id="{{ message.id }}" class="homepage-button">Delete</button>
         {% endif %}
         <div class="comment-section">
             <h4>Comments:</h4>
