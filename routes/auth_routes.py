@@ -25,78 +25,6 @@ def format_datetime(dt):
     local_dt = dt.replace(tzinfo=pytz.utc).astimezone(LOCAL_TIMEZONE)
     return local_dt.strftime('%H:%M:%S')
 
-#Initialize OAuth
-oauth = OAuth(app)
-
-# Configure Google OAuth2 client
-google = oauth.register(
-    name='google',
-    client_id='989959871090-tto4coh3e2qa1kri3irtrg3v419ck7gj.apps.googleusercontent.com',
-    client_secret='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',
-    access_token_url='https://accounts.google.com/o/oauth2/token',
-    access_token_params=None,
-    authorize_url='https://accounts.google.com/o/oauth2/auth',
-    authorize_params=None,
-    api_base_url='https://www.googleapis.com/oauth2/v1/',
-    client_kwargs={'scope': 'openid email profile'},
-    jwks_uri='https://www.googleapis.com/oauth2/v3/certs'
-)
-
-@auth_bp.route('/login/google')
-def google_login():
-    if current_user.is_authenticated:
-        return redirect(url_for('main.index'))
-    redirect_uri = url_for('auth.google_authorize', _external=True)
-    return google.authorize_redirect(redirect_uri)
-
-@auth_bp.route('/callback')
-def google_authorize():
-    def generate_unique_username(base_username):
-        username = base_username
-        counter = 1
-        while User.query.filter_by(username=username).first() is not None:
-            username = f"{base_username}_{counter}"
-            counter += 1
-        return username
-
-    token = google.authorize_access_token()
-    if not token:
-        flash('Access denied: reason={} error={}'.format(
-            request.args['error_reason'],
-            request.args['error_description']
-        ), 'danger')
-        return redirect(url_for('auth.login'))
-
-    resp = google.get('userinfo')
-    user_info = resp.json()
-    existing_user = User.query.filter_by(google_id=user_info['id']).first()
-
-    if existing_user:
-        # User exists, initiate the 2FA verification if it's set up
-        if existing_user.is_2fa_setup:
-            session['verify_2fa'] = True
-            session['username'] = existing_user.username
-            return redirect(url_for('auth.verify_2fa'))
-        else:
-            return redirect(url_for('auth.setup_2fa', user_id=existing_user.id))
-
-    # User doesn't exist, create a new one and redirect to 2FA setup
-    new_user = User(
-        username=generate_unique_username(user_info['name']),
-        email=user_info['email'],
-        google_id=user_info['id'],
-        # Initialize other necessary fields as required.
-    )
-    new_user.set_totp_secret()
-    db.session.add(new_user)
-    db.session.commit()
-
-    # Redirect to 2FA setup for the new user
-    return redirect(url_for('auth.setup_2fa', user_id=new_user.id))
-
-
-
-
 #Route to handle registration
 @auth_bp.route('/register', methods=['GET', 'POST'])
 @limiter.limit("5 per minute", methods=["POST"])
@@ -104,10 +32,13 @@ def register():
     #Get the registration form
     form = RegistrationForm()
 
+    #If the request methos is GET just render the registration page.
     if request.method == 'GET':
         return render_template('auth/register.html', form=form)
 
+    #If the forn is not validated.
     if not form.validate_on_submit():
+        #Check if the error comes from the entered email og password and alert the user with the problem.
         for fieldName in form.errors.items():
             if fieldName[0] == "email":
                 flash("Invalid email", 'danger')
@@ -115,12 +46,15 @@ def register():
                 flash("Invalid password", 'danger')
         return render_template('auth/register.html', form=form)
 
+    #Check if the entered username or email already exists in the system.
     existing_user = User.query.filter_by(username=form.username.data).first()
     existing_email = User.query.filter_by(email=form.email.data).first()
 
+    #If the username is in use alert the user and rerender the register page.
     if existing_user:
         flash('Username already in use. Please choose a different one.', 'danger')
         return render_template('auth/register.html', form=form)
+    #If the email is in use alert the user and rerender the register page.
     elif existing_email:
         flash('Email already in use. Please choose a different one.', 'danger')
         return render_template('auth/register.html', form=form)
@@ -131,6 +65,7 @@ def register():
     new_user.email = form.email.data
     new_user.set_totp_secret()
 
+    #Commit the new user to the database.
     db.session.add(new_user)
     db.session.commit()
 

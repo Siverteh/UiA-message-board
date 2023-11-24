@@ -25,7 +25,7 @@
     {{ form.password(class='login-input') }}
     {{ form.submit(class='login-submit') }}
 
-    <a href="{{ url_for('auth.google_login') }}" class="login-google">
+    <a href="{{ url_for('oauth2.google_login') }}" class="login-google">
         Login with Google
     </a>
 

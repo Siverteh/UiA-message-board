@@ -5,6 +5,7 @@ from routes.auth_routes import auth_bp
 from routes.message_routes import message_bp
 from routes.error_routes import error_bp
 from routes.main_routes import main_bp
+from routes.oauth2_routes import oauth2_bp
 
 # Function to create the Flask app
 def create_app(config_class=Config):
@@ -25,6 +26,7 @@ def create_app(config_class=Config):
     # Register Blueprints
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(oauth2_bp, url_prefix='/oauth2')
     app.register_blueprint(message_bp, url_prefix='/messages')
     app.register_blueprint(error_bp, url_prefix='/errors')
 
