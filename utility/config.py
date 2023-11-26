@@ -15,5 +15,12 @@ class Config:
     SESSION_COOKIE_SECURE = os.getenv('SESSION_COOKIE_SECURE', 'False') == 'True'
     # Jinja2 autoescape configuration
     JINJA_ENV_AUTOESCAPE = select_autoescape(enabled_extensions=(), default=True)
+    SECURITY_PASSWORD_SALT = "803353e1c98a504e217a839c27f96182e8977aafb5c87275"
 
-    # Add any additional configuration parameters here
+    # Email configuration
+    MAIL_SERVER = 'smtp.sendgrid.net'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = 'apikey'  # This is literally the string 'apikey'
+    MAIL_PASSWORD = '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'  # Your SendGrid API key
+    MAIL_DEFAULT_SENDER = 'uiamessageboard@gmail.com'  # Email verified with SendGrid

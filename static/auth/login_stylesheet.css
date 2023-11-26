@@ -18,8 +18,8 @@
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-    width: 60%;
-    max-width: 500px;
+    width: 25%;
+    /*max-width: 500px;*/
     margin: auto;
 }
 
@@ -35,13 +35,14 @@
 }
 
 .login-input, .login-textarea {
-    padding: 12px 10px;
+    padding: 15px 10px;
     border: 1px solid #333;
     border-radius: 5px;
     margin-bottom: 10px;
     width: 95%;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 10px;
 }
 
 .login-button, .login-submit {
@@ -54,6 +55,7 @@
     color: #fff;
     cursor: pointer;
     margin: 0 auto;
+    margin-top: 15px;
 }
 
 .login-button:hover, .login-submit:hover {
@@ -87,3 +89,90 @@
     width: 95%;
     max-width: 400px;
 }
+
+/* Google Button Styles */
+.login-google {
+    background-color: #4285F4; /* Google Blue */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 2px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.login-google img {
+    width: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* GitHub Button Styles */
+.login-github {
+    background-color: #333; /* GitHub Black */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 2px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.login-github img {
+    width: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* OAuth Button Styles */
+.oauth-buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.login-google, .login-github {
+    border: none;
+    background-color: transparent;
+    padding: 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    display: inline-block;
+    transition: filter 0.3s ease; /* Smooth transition for filter effect */
+}
+
+.login-google img, .login-github img {
+    height: 40px; /* Adjust as needed */
+    width: auto;
+}
+
+.login-google:hover, .login-github:hover {
+    filter: brightness(85%); /* Reduce brightness to make button darker on hover */
+}
+
+
+/* Separator Styles */
+.login-or-separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 10px 0;
+    width: 100%; /* Ensure full width */
+    margin-top: 40px;
+}
+
+.login-or-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #aaa; /* Light grey line */
+    margin: 0 10px;
+}
+
+.login-or-text {
+    color: #666; /* Darker grey text */
+    font-weight: bold;
+    background-color: white; /* Background color similar to the form's background */
+    padding: 0 10px; /* Padding to avoid overlapping with the line */
+}
+

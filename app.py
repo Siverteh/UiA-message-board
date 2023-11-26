@@ -1,11 +1,12 @@
 from flask import Flask
-from config import Config
-from extensions import db, bcrypt, login_manager, limiter, migrate, session
+from utility.config import Config
+from utility.extensions import db, bcrypt, login_manager, limiter, migrate, session, mail
 from routes.auth_routes import auth_bp
 from routes.message_routes import message_bp
 from routes.error_routes import error_bp
 from routes.main_routes import main_bp
 from routes.oauth2_routes import oauth2_bp
+from utility.populate_database import populate_database
 
 # Function to create the Flask app
 def create_app(config_class=Config):
@@ -22,6 +23,7 @@ def create_app(config_class=Config):
     limiter.init_app(app)
     migrate.init_app(app, db)
     session.init_app(app)
+    mail.init_app(app)
 
     # Register Blueprints
     app.register_blueprint(main_bp)
@@ -52,6 +54,11 @@ def create_app(config_class=Config):
 # Instantiate the app using the create_app function
 app = create_app()
 
+with app.app_context():
+    db.drop_all()
+    db.create_all()
+    populate_database()
+
 # Run the application
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, ssl_context=('self-signed_ssl_certificate/localhost.crt', 'self-signed_ssl_certificate/localhost.key'))
+    app.run(host='0.0.0.0', port=5000, ssl_context=('self-signed_ssl_certificate/localhost.crt', 'self-signed_ssl_certificate/localhost.key'), debug=True)

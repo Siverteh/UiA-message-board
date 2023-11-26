@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_user, login_required, logout_user
 from models import db, User
 from forms import LoginForm, RegistrationForm, TOTPForm
 import pyotp
@@ -7,10 +7,9 @@ import qrcode
 from io import BytesIO
 import base64
 import pytz
-from extensions import limiter
+from utility.extensions import limiter
 from uuid import uuid4
-from authlib.integrations.flask_client import OAuth
-from flask import current_app as app
+from email_utils import confirm_token, generate_confirmation_token, send_email
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -69,8 +68,31 @@ def register():
     db.session.add(new_user)
     db.session.commit()
 
+    # Generate and send a confirmation email
+    token = generate_confirmation_token(new_user.email)
+    confirm_url = url_for('auth.confirm_email', token=token, _external=True)
+    send_email(new_user.email, 'Confirm Your Account', 'auth/email_verification', confirm_url=confirm_url)
+
     #Redirect to the 2FA setup page.
     return redirect(url_for('auth.setup_2fa', user_id=new_user.id))
+
+@auth_bp.route('/confirm/<token>')
+def confirm_email(token):
+    email = confirm_token(token)
+    if not email:
+        flash('The confirmation link is invalid or has expired.', 'danger')
+        return redirect(url_for('auth.login'))
+
+    user = User.query.filter_by(email=email).first_or_404()
+    if user.email_confirmed:
+        flash('Account already confirmed. Please login.', 'success')
+    else:
+        user.email_confirmed = True
+        db.session.commit()
+        flash('Your email has been confirmed. Please set up 2FA.', 'success')
+        return redirect(url_for('auth.setup_2fa', user_id=user.id))
+
+    return redirect(url_for('auth.login'))
 
 #Route to handle 2FA setup
 @auth_bp.route('/setup_2fa', methods=['GET', 'POST'])
@@ -256,3 +278,7 @@ def logout():
     #Redirects to the home page.
     return redirect(url_for('main.index'))
 
+@auth_bp.route('/forgotten_password', methods=['GET', 'POST'])
+@limiter.limit("5 per minute", methods=["POST"])
+def forgotten_password():
+    pass

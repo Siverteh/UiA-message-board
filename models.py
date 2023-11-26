@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from extensions import db, login_manager, bcrypt
+from utility.extensions import db, login_manager, bcrypt
 from flask_login import UserMixin
 import pyotp
 
@@ -8,8 +8,10 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, index=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
+    email_confirmed = db.Column(db.Boolean, default=False)
     password_hash = db.Column(db.String(256), nullable=True)
     google_id = db.Column(db.String(100), unique=True, nullable=True)
+    github_id = db.Column(db.String(100), unique=True, nullable=True)
     failed_attempts = db.Column(db.Integer, default=0)
     lock_until = db.Column(db.DateTime, default=None)
     totp_secret = db.Column(db.String(16))
@@ -78,28 +80,4 @@ class Comment(db.Model):
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     message_id = db.Column(db.Integer, db.ForeignKey('message.id'), nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-#This model will store the details of each registered OAuth2 client.
-class OAuthClient(db.Model):
-    __tablename__ = 'oauth_client'
-    id = db.Column(db.Integer, primary_key=True)
-    client_id = db.Column(db.String(64), unique=True, index=True)
-    client_secret = db.Column(db.String(128))
-    redirect_uri = db.Column(db.String(256))
-
-#This model will store authorized codes along with associated data.
-class AuthorizationCode(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    code = db.Column(db.String(128), unique=True)
-    client_id = db.Column(db.Integer, db.ForeignKey('oauth_client.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    expires_at = db.Column(db.DateTime, default=datetime.utcnow() + timedelta(minutes=10))
-
-#This model will store access tokens issues to clients
-class AccessToken(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    token = db.Column(db.String(256), unique=True)
-    client_id = db.Column(db.Integer, db.ForeignKey('oauth_client.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    expires_at = db.Column(db.DateTime, default=datetime.utcnow() + timedelta(hours=1))
 

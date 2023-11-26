@@ -10,7 +10,7 @@
 <body class="verify-2fa-body">
 
 <form method="post" class="verify-2fa-container">
-    <h2 class="verify-2fa-title">Confirm TOTP code:</h2>
+    <h1 class="verify-2fa-title">Confirm TOTP code:</h1>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}

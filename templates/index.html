@@ -11,14 +11,13 @@
 <body class="homepage-body">
 
 <div class="homepage-header">
-    <h1>Welcome to the University of Agder's Message Board</h1>
+    <h1>University of Agder's Message Board</h1>
     <div class="auth-buttons-container">
         {% if current_user.is_authenticated %}
             <a href="{{ url_for('message.create_message') }}"><button class="homepage-button">Post a New Message</button></a>
-            <a href="{{ url_for('auth.logout') }}"><button class="homepage-button">Logout</button></a>
+            <a href="{{ url_for('auth.logout') }}"><button class="homepage-button">Log out</button></a>
         {% else %}
-            <a href="{{ url_for('auth.login') }}"><button class="homepage-button">Login</button></a>
-            <a href="{{ url_for('auth.register') }}"><button class="homepage-button">Register</button></a>
+            <a href="{{ url_for('auth.login') }}"><button class="homepage-button">Log in to post a message</button></a>
         {% endif %}
     </div>
 </div>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #8A0A0B;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .email-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+        .btn-primary {
+            display: inline-block;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #8A0A0B; /* University of Agder red color */
+            color: #fff;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #6B0809;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <h1>Welcome to University of Agder Message Board!</h1>
+        <p>Please click the button below to verify your email address and activate your account:</p>
+        <a href="{{ confirm_url }}" class="btn-primary">Verify Email</a>
+        <p>If you did not create an account, no further action is required.</p>
+    </div>
+</body>
+</html>

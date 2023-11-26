@@ -15,8 +15,7 @@ html, body {
 }
 
 .setup-2fa-container {
-    width: 100%;
-    max-width: 500px;
+    width: 25%;
     margin: 0 auto;
     padding: 20px;
     box-sizing: border-box; /* Include padding in the width calculation */

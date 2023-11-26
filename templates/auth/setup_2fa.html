@@ -10,7 +10,7 @@
 <body class="setup-2fa-body">
 
 <div class="setup-2fa-container">
-    <h2 class="setup-2fa-title">2-Factor Authentication Setup</h2>
+    <h1 class="setup-2fa-title">2-Factor Authentication Setup</h1>
     <p class="setup-2fa-p">Please scan the QR code below with your authenticator app.</p>
     <img src="data:image/png;base64,{{ qr_code_data }}" alt="2FA QR Code" class="login-qr">
     <p class="setup-2fa-p">After scanning the QR code, enter the 2FA code from your app below to verify setup.</p>
@@ -24,8 +24,7 @@
             {% endif %}
         {% endwith %}
         {{ form.hidden_tag() }}
-        <label class="setup-2fa-label">Enter authenticator code:</label>
-        {{ form.totp_code(id="totp_code", class='setup-2fa-input') }}
+        {{ form.totp_code(id="totp_code", class='setup-2fa-input', placeholder="Enter authentication code") }}
         {{ form.submit(class='setup-2fa-submit') }}
     </form>
 

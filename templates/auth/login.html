@@ -10,7 +10,7 @@
 <body class="login-body">
 
 <form method="post" class="login-container">
-    <h2 class="login-title">Login:</h2>
+    <h1 class="login-title">Log in</h1>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -19,15 +19,30 @@
         {% endif %}
     {% endwith %}
     {{ form.hidden_tag() }}
-    <label class="login-label">Username:</label>
-    {{ form.username(class='login-input') }}
-    <label class="login-label">Password:</label>
-    {{ form.password(class='login-input') }}
+    {{ form.username(class='login-input', placeholder="Username") }}
+    {{ form.password(class='login-input', placeholder="Password") }}
     {{ form.submit(class='login-submit') }}
 
-    <a href="{{ url_for('oauth2.google_login') }}" class="login-google">
-        Login with Google
-    </a>
+    <a href="{{ url_for('auth.forgotten_password') }}" class="login-link">Forgot your password?</a>
+
+    <a href="{{ url_for('auth.register') }}" class="login-link">Register as a new user</a>
+
+    <!-- Separator Line with 'OR' in the middle -->
+    <div class="login-or-separator">
+        <span class="login-or-line"></span>
+        <span class="login-or-text">OR</span>
+        <span class="login-or-line"></span>
+    </div>
+
+    <div class="oauth-buttons">
+        <a href="{{ url_for('oauth2.google_login') }}" class="login-google">
+            <img src="../../static/images/google_logo.png" alt="Login with Google">
+        </a>
+        <br>
+        <a href="{{ url_for('oauth2.github_login') }}" class="login-github">
+            <img src="../../static/images/github_logo.png" alt="Login with GitHub">
+        </a>
+    </div>
 
     <a href="{{ url_for('main.index') }}" class="login-link">Return to homepage</a>
 </form>
