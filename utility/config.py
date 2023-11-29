@@ -22,5 +22,5 @@ class Config:
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USERNAME = 'apikey'  # This is literally the string 'apikey'
-    MAIL_PASSWORD = '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'  # Your SendGrid API key
+    MAIL_PASSWORD = 'SendGrid API key should be here'  # Your SendGrid API key
     MAIL_DEFAULT_SENDER = 'uiamessageboard@gmail.com'  # Email verified with SendGrid

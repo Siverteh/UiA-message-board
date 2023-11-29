@@ -35,15 +35,14 @@ def create_app(config_class=Config):
     # Route for the CSP header
     @app.after_request
     def apply_csp(response):
-        # Set Content Security Policy headers to enhance security by defining where resources can be loaded from.
         csp_policy = (
             "default-src 'self'; "
-            "script-src 'self'; "
+            "script-src 'self' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; "
             "style-src 'self'; "
             "img-src 'self' data:; "
-            "object-src 'none';"
+            "object-src 'none'; "
+            "frame-src 'self' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/;"
         )
-        # Apply the CSP policy to the headers of the response
         response.headers['Content-Security-Policy'] = csp_policy
         response.headers['X-Content-Security-Policy'] = csp_policy
         response.headers['X-WebKit-CSP'] = csp_policy

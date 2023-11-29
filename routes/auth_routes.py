@@ -9,7 +9,8 @@ import base64
 import pytz
 from utility.extensions import limiter
 from uuid import uuid4
-from email_utils import confirm_token, generate_confirmation_token, send_email
+from utility.email_utils import confirm_token, generate_confirmation_token, send_email
+import requests
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -43,6 +44,22 @@ def register():
                 flash("Invalid email", 'danger')
             elif fieldName[0] == "password":
                 flash("Invalid password", 'danger')
+        return render_template('auth/register.html', form=form)
+
+    #reCAPTCHA verification
+    recaptcha_response = request.form['g-recaptcha-response']
+    print("Received reCAPTCHA response:", recaptcha_response)
+    secret_key = '6LeasiApAAAAANSTr4gVeKwOFCiF8pvtOFyWUwKG'  # Use your actual secret key here
+    payload = {
+        'secret': secret_key,
+        'response': recaptcha_response
+    }
+    response = requests.post('https://www.google.com/recaptcha/api/siteverify', data=payload)
+    result = response.json()
+    print("reCAPTCHA verification result:", result)
+
+    if not result['success']:
+        flash('reCAPTCHA validation failed. Please try again.', 'danger')
         return render_template('auth/register.html', form=form)
 
     #Check if the entered username or email already exists in the system.

@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="../../static/auth/register_stylesheet.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="../../static/auth/auth_scripts.js"></script>
 </head>
 <body class="register-body">
 
-<form method="post" class="register-container">
+<form id="registration-form" method="post" class="register-container">
     <h1 class="register-title">New user</h1>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -21,21 +22,10 @@
     {% endwith %}
     {{ form.hidden_tag() }}
 
-    <div class="form-group">
-        {{ form.username(class='register-input', placeholder="Username") }}
-    </div>
-
-    <div class="form-group">
-        {{ form.email(class='register-input', placeholder="Email") }}
-    </div>
-
-    <div class="form-group">
-        {{ form.password(class='register-input', id='password', placeholder="Password") }}
-    </div>
-
-    <div class="form-group">
-        {{ form.confirm(class='register-input', id='confirm-password', placeholder="Confirm password") }}
-    </div>
+    {{ form.username(class='register-input', placeholder="Username") }}
+    {{ form.email(class='register-input', placeholder="Email") }}
+    {{ form.password(class='register-input', id='password', placeholder="Password") }}
+    {{ form.confirm(class='register-input', id='confirm-password', placeholder="Confirm password") }}
 
     <div id="password-criteria" class="password-criteria">
         <p>Your password must:</p>
@@ -50,9 +40,11 @@
         </ul>
     </div>
 
-    <div class="form-group">
-        {{ form.submit(class='register-submit') }}
+    <div class="recaptcha-container">
+        <div class="g-recaptcha" data-sitekey="6LeasiApAAAAABO4lLeLyxG9wtQzKG3HuUyAmvd2"></div>
     </div>
+
+    <button type="submit" class="register-submit">Register</button>
 
     <a href="{{ url_for('auth.login') }}" class="register-link">Return to login</a>
 </form>

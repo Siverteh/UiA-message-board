@@ -57,7 +57,6 @@ class User(db.Model, UserMixin):
         self.totp_secret = pyotp.random_base32()
 
 
-
 #Returns user object from user ID
 @login_manager.user_loader
 def load_user(user_id):

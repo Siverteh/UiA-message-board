@@ -85,6 +85,12 @@
     padding-left: 0;
 }
 
+.recaptcha-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .criteria-icon {
     color: red;
     margin-right: 5px;

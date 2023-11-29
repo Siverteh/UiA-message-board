@@ -32,3 +32,4 @@ document.addEventListener('DOMContentLoaded', function() {
     passwordInput.addEventListener('input', updateCriteria);
     confirmPasswordInput.addEventListener('input', updateCriteria);
 });
+

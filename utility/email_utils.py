@@ -2,6 +2,7 @@ from flask_mail import Message
 from itsdangerous import URLSafeTimedSerializer
 from flask import current_app, render_template
 from utility.extensions import mail
+from smtplib import SMTPServerDisconnected
 
 # Function to send emails
 def send_email(to, subject, template, **kwargs):
@@ -11,7 +12,17 @@ def send_email(to, subject, template, **kwargs):
         html=render_template(template + '.html', **kwargs),
         sender=current_app.config['MAIL_DEFAULT_SENDER']
     )
-    mail.send(msg)
+
+    try:
+        mail.send(msg)
+    except SMTPServerDisconnected:
+        # Log the exception (you can also implement logging here)
+        print("SMTP server disconnected. Email not sent.")
+        # Optionally, add retry logic or queue the email for later
+    except Exception as e:
+        # Handle other potential exceptions
+        print(f"An error occurred: {e}")
+        # Additional error handling logic can be added here
 
 # Function to generate a confirmation token
 def generate_confirmation_token(email):
