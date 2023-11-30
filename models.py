@@ -3,7 +3,7 @@ from utility.extensions import db, login_manager, bcrypt
 from flask_login import UserMixin
 import pyotp
 
-#User model contains username, password hash, and messages fields.
+#User model contains all the information concerning a user, as well as user specific methods.
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, index=True, nullable=False)
@@ -57,12 +57,12 @@ class User(db.Model, UserMixin):
         self.totp_secret = pyotp.random_base32()
 
 
-#Returns user object from user ID
+#Returns user object from user ID. Is needed as an import in app.py for current_user.is_authenticated to work.
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-#Message model contains title, content, date posted, and author ID fields.
+#Contains all the information concerning a message.
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150), nullable=False)
@@ -72,7 +72,7 @@ class Message(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     comments = db.relationship('Comment', backref='message', lazy=True, cascade="all, delete-orphan")
 
-#Comment model contains content, date posted, message ID, and author ID fields.
+#Contains all the information concerning a comment.
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)

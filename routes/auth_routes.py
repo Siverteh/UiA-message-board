@@ -172,12 +172,12 @@ def setup_2fa():
         #Redirect to the homepage.
         return redirect(url_for('main.index'))
 
-    # Prepare secret if not already set
+    #Prepare secret if not already set
     if not new_user.totp_secret:
         new_user.totp_secret = pyotp.random_base32()
         db.session.commit()
 
-    # Render the page for GET requests or invalid POST submissions
+    #Render the page for GET requests or invalid POST submissions
     qr_code_data = generate_qr_code(new_user)
     return render_template('auth/setup_2fa.html', form=form, qr_code_data=qr_code_data)
 
@@ -188,41 +188,41 @@ def setup_2fa():
 def login():
     form = LoginForm()
 
-    # Ensures logged in users cant access the login page.
+    #Ensures logged in users cant access the login page.
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
 
-    # If the form is not submitted or not valid, just render the login page.
+    #If the form is not submitted or not valid, just render the login page.
     if not form.validate_on_submit():
         return render_template('auth/login.html', form=form)
 
-    # Query the database for a user with the given username.
+    #Query the database for a user with the given username.
     user = User.query.filter_by(username=form.username.data).first()
 
-    # If the user is not found, flash a message.
+    #If the user is not found, flash a message.
     if not user:
         flash('Invalid username or password.', 'danger')
         return render_template('auth/login.html', form=form)
 
-    # Check if the user's account is locked.
+    #Check if the user's account is locked.
     locked, lock_until = user.is_account_locked()
     if locked:
         flash(f'Account is locked until {format_datetime(lock_until)}. Please try again later.', 'danger')
         return render_template('auth/login.html', form=form)
 
-    # If the password is incorrect, flash a message and increment the user's failed attempts.
+    #If the password is incorrect, flash a message and increment the user's failed attempts.
     if not user.verify_password(form.password.data):
         user.increment_failed_attempts()
         flash('Invalid username or password.', 'danger')
         return render_template('auth/login.html', form=form)
 
-    # If 2FA is set up, start the 2FA verification process.
+    #If 2FA is set up, start the 2FA verification process.
     if user.is_2fa_setup:
         session['verify_2fa'] = True
         session['username'] = user.username
         return redirect(url_for('auth.verify_2fa'))
 
-    # If 2FA is not set up, redirect to 2FA setup.
+    #If 2FA is not set up, redirect to 2FA setup.
     return redirect(url_for('auth.setup_2fa', user_id=user.id))
 
 
@@ -284,22 +284,29 @@ def logout():
     #Redirects to the home page.
     return redirect(url_for('main.index'))
 
+#Route to handle forgotten password. (FUTURE WORK)
 @auth_bp.route('/forgotten_password', methods=['GET', 'POST'])
 @limiter.limit("5 per minute", methods=["POST"])
 def forgotten_password():
     pass
 
-
+#Route to handle email verification.
 @auth_bp.route('/confirm/<token>')
 def confirm_email(token):
+    #Confirm the confirmation token.
     email = confirm_token(token)
+    #If not confirmed print the reason and redirect them to the login page.
     if not email:
         flash('The confirmation link is invalid or has expired.', 'danger')
         return redirect(url_for('auth.login'))
 
+    #Query the user from the database.
     user = User.query.filter_by(email=email).first_or_404()
+
+    #If the user is already confirmed inform the user.
     if user.email_confirmed:
         flash('Account already confirmed. Please login.', 'success')
+    #If the user in not confirmed, set their email_confirmed field to true and inform the user.
     else:
         user.email_confirmed = True
         db.session.commit()

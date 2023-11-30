@@ -7,8 +7,7 @@ from flask_migrate import Migrate
 from flask_session import Session
 from flask_mail import Mail
 
-# Initialize Flask extensions
-# Note that we do not pass the 'app' object here
+#Initialize Flask extensions, we do not pass the app object here.
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
@@ -17,5 +16,5 @@ migrate = Migrate()
 session = Session()
 mail = Mail()
 
-# Configure login manager
+#Configure login manager
 login_manager.login_view = 'auth.login'

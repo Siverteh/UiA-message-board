@@ -37,12 +37,20 @@ def message(id):
 def create_message():
     #if the request method is POST, create a new message and save it to the database.
     if request.method == 'POST':
+
+        #Get the title and content entered into the textinput.
         title = request.form.get('title')
         content = request.form.get('content')
+
+        #If any of them are empty inform the user they are required.
         if not title or not content:
             flash('Title and Content are required!', 'danger')
             return redirect(request.url)
+
+        #Create an instance of the message model with the title and content.
         message = Message(title=title, content=content, author=current_user)
+
+        #Add the message to the database.
         db.session.add(message)
         db.session.commit()
         return redirect(url_for('main.index'))
