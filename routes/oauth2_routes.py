@@ -84,9 +84,6 @@ def google_authorize():
         session['username'] = user.username
         return redirect(url_for('auth.verify_2fa'))
 
-    # Redirect to a default page if none of the above conditions are met
-    return redirect(url_for('main.index'))
-
 
 # Configure GitHub OAuth2 client
 github = oauth.register(
@@ -148,6 +145,3 @@ def github_authorize():
         session['verify_2fa'] = True
         session['username'] = user.username
         return redirect(url_for('auth.verify_2fa'))
-
-    # Redirect to a default page if none of the above conditions are met
-    return redirect(url_for('main.index'))

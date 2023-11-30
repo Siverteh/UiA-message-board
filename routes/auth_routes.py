@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 from models import db, User
 from forms import LoginForm, RegistrationForm, TOTPForm
 import pyotp
@@ -32,6 +32,10 @@ def register():
     #Get the registration form
     form = RegistrationForm()
 
+    #Ensures logged in users cant access the register page.
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+
     #If the request methos is GET just render the registration page.
     if request.method == 'GET':
         return render_template('auth/register.html', form=form)
@@ -48,7 +52,6 @@ def register():
 
     #reCAPTCHA verification
     recaptcha_response = request.form['g-recaptcha-response']
-    print("Received reCAPTCHA response:", recaptcha_response)
     secret_key = '6LeasiApAAAAANSTr4gVeKwOFCiF8pvtOFyWUwKG'  # Use your actual secret key here
     payload = {
         'secret': secret_key,
@@ -56,7 +59,6 @@ def register():
     }
     response = requests.post('https://www.google.com/recaptcha/api/siteverify', data=payload)
     result = response.json()
-    print("reCAPTCHA verification result:", result)
 
     if not result['success']:
         flash('reCAPTCHA validation failed. Please try again.', 'danger')
@@ -93,23 +95,6 @@ def register():
     #Redirect to the 2FA setup page.
     return redirect(url_for('auth.setup_2fa', user_id=new_user.id))
 
-@auth_bp.route('/confirm/<token>')
-def confirm_email(token):
-    email = confirm_token(token)
-    if not email:
-        flash('The confirmation link is invalid or has expired.', 'danger')
-        return redirect(url_for('auth.login'))
-
-    user = User.query.filter_by(email=email).first_or_404()
-    if user.email_confirmed:
-        flash('Account already confirmed. Please login.', 'success')
-    else:
-        user.email_confirmed = True
-        db.session.commit()
-        flash('Your email has been confirmed. Please set up 2FA.', 'success')
-        return redirect(url_for('auth.setup_2fa', user_id=user.id))
-
-    return redirect(url_for('auth.login'))
 
 #Route to handle 2FA setup
 @auth_bp.route('/setup_2fa', methods=['GET', 'POST'])
@@ -203,6 +188,10 @@ def setup_2fa():
 def login():
     form = LoginForm()
 
+    # Ensures logged in users cant access the login page.
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+
     # If the form is not submitted or not valid, just render the login page.
     if not form.validate_on_submit():
         return render_template('auth/login.html', form=form)
@@ -244,7 +233,7 @@ def verify_2fa():
     #Ensure 'verify_2fa' and 'username' are in the session
     if 'verify_2fa' not in session or 'username' not in session:
         flash('Please login to verify 2FA.', 'warning')
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))
 
     #Get the TOTP form.
     form = TOTPForm()
@@ -299,3 +288,22 @@ def logout():
 @limiter.limit("5 per minute", methods=["POST"])
 def forgotten_password():
     pass
+
+
+@auth_bp.route('/confirm/<token>')
+def confirm_email(token):
+    email = confirm_token(token)
+    if not email:
+        flash('The confirmation link is invalid or has expired.', 'danger')
+        return redirect(url_for('auth.login'))
+
+    user = User.query.filter_by(email=email).first_or_404()
+    if user.email_confirmed:
+        flash('Account already confirmed. Please login.', 'success')
+    else:
+        user.email_confirmed = True
+        db.session.commit()
+        flash('Your email has been confirmed. Please set up 2FA.', 'success')
+        return redirect(url_for('auth.setup_2fa', user_id=user.id))
+
+    return redirect(url_for('auth.login'))

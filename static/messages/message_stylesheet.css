@@ -118,3 +118,9 @@
 .comment-submit-button:hover {
     background-color: #6B0809;
 }
+
+.message-comment {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

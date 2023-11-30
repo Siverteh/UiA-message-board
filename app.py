@@ -7,6 +7,7 @@ from routes.error_routes import error_bp
 from routes.main_routes import main_bp
 from routes.oauth2_routes import oauth2_bp
 from utility.populate_database import populate_database
+from models import load_user
 
 # Function to create the Flask app
 def create_app(config_class=Config):
