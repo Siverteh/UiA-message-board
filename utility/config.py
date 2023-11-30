@@ -12,7 +12,7 @@ class Config:
     SQLALCHEMY_ECHO = True
     PERMANENT_SESSION_LIFETIME = timedelta(minutes=60)
     # Enable secure cookies when running over HTTPS
-    SESSION_COOKIE_SECURE = os.getenv('SESSION_COOKIE_SECURE', 'False') == 'True'
+    SESSION_COOKIE_SECURE = True
     # Jinja2 autoescape configuration
     JINJA_ENV_AUTOESCAPE = select_autoescape(enabled_extensions=(), default=True)
     SECURITY_PASSWORD_SALT = "803353e1c98a504e217a839c27f96182e8977aafb5c87275"
