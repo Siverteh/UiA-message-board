@@ -21,7 +21,7 @@ class Config:
     SESSION_COOKIE_SECURE = True
     #Jinja2 autoescape configuration
     JINJA_ENV_AUTOESCAPE = select_autoescape(enabled_extensions=(), default=True)
-    SECURITY_PASSWORD_SALT = "803353e1c98a504e217a839c27f96182e8977aafb5c87275"
+    SECURITY_PASSWORD_SALT = os.environ.get('PASSWORD_SALT')
 
     #Email configuration
     MAIL_SERVER = 'smtp.sendgrid.net'

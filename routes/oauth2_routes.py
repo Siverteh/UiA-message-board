@@ -1,3 +1,5 @@
+import os
+
 from flask import Blueprint, request, redirect, url_for, flash, session
 from flask_login import current_user
 from models import db, User
@@ -26,7 +28,7 @@ oauth = OAuth(app)
 google = oauth.register(
     name='google',
     client_id='989959871090-tto4coh3e2qa1kri3irtrg3v419ck7gj.apps.googleusercontent.com',
-    client_secret='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',
+    client_secret=os.environ.get('GOOGLE_SECRET_KEY'),
     access_token_url='https://accounts.google.com/o/oauth2/token',
     access_token_params=None,
     authorize_url='https://accounts.google.com/o/oauth2/auth',
@@ -95,7 +97,7 @@ def google_authorize():
 github = oauth.register(
     name='github',
     client_id='a3f1ea3512b2e54402cb',
-    client_secret='3679688d2ead516f9f9b5fb2070413fa920869d7',
+    client_secret=os.environ.get('GITHUB_SECRET_KEY'),
     access_token_url='https://github.com/login/oauth/access_token',
     authorize_url='https://github.com/login/oauth/authorize',
     api_base_url='https://api.github.com/',

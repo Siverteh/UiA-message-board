@@ -11,6 +11,7 @@ from utility.extensions import limiter
 from uuid import uuid4
 from utility.email_utils import confirm_token, generate_confirmation_token, send_email
 import requests
+import os
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -52,7 +53,7 @@ def register():
 
     #reCAPTCHA verification
     recaptcha_response = request.form['g-recaptcha-response']
-    secret_key = '6LeasiApAAAAANSTr4gVeKwOFCiF8pvtOFyWUwKG'  # Use your actual secret key here
+    secret_key = os.environ.get('RECAPTCHA_KEY')
     payload = {
         'secret': secret_key,
         'response': recaptcha_response
