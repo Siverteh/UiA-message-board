@@ -1,70 +1,96 @@
-# UiA-message-board
-My implementation for the projects in software security.
+# UiA-message-board, Assignment 3: User Authentication
 
-Assignment 3:
+## Objectives
 
-Objectives
-<aside> 🐍 You are free to develop your solution using any language, but I recommend Python. You can extend your previous application from the first assignment. But I recommend using GIT (if you did not do that the first assignment, now is the time to push everything on git)
+🐍 _**Language Recommendation:**_ You are free to develop your solution using any programming language, but Python is recommended. Feel free to extend your previous application from the first assignment. This is an excellent opportunity to use GIT – if you haven't already, now is the time to push everything on git.
 
-</aside>
+**Your task is to design and implement a user authentication system** that incorporates the following elements:
 
-Design and implement a user authentication system that combines OAuth2 Authorization Code Flow, conventional authentication mechanisms, a backend database, and security features such as Two-Factor Authentication (2FA).
+1. OAuth2 Authorization Code Flow
+2. Conventional authentication mechanisms
+3. Backend database integration
+4. Security features such as Two-Factor Authentication (2FA)
 
-The assignment consists of 5 tasks, where each task is weighted the same:
+The assignment is divided into 5 tasks, each with equal weight:
 
-Database Integration
-Basic User Authentication
-Protection Against Brute Force Attacks
-Two-Factor Authentication
-Understanding the Concepts of OAuth2
-Learning Outcomes
-From this assignment, you will learn about basic databases, like JSON and SQLite. You will learn how to use them securely, having a security-first mindset. You will further learn how to create basic username-password authentication and use hashing to protect credentials. Further, you will create measures to prevent rainbow table attacks from working with rate-limiting. Then we will discover how two-factor authentication works and how it can be implemented with Python. Lastly, we will learn the basics of OAUTH2.
+1. Database Integration
+2. Basic User Authentication
+3. Protection Against Brute Force Attacks
+4. Two-Factor Authentication
+5. Understanding the Concepts of OAuth2
 
-(20) Database Integration:
-Integrate a lightweight database, e.g., JSON-based storage or SQLite, to persistently save user data.
-Design efficient database schemas that optimize retrieval and storage operations while ensuring data security.
-(20) Basic User Authentication:
-<aside> 💡 Remember to document security challenges and mitigations
+### Learning Outcomes
 
-</aside>
+Through this assignment, you'll gain insights into:
 
-Set up a standard authentication system that allows users to sign up using a username and password.
-Store user credentials securely in the database, leveraging advanced hashing and salting techniques, preferably with libraries like bcrypt or hashlib.
-(20) Protection Against Brute Force Attacks:
-<aside> 💡 Remember to document security challenges and mitigations
+- Basic databases, like JSON and SQLite, and their secure usage.
+- Creation of basic username-password authentication and protecting credentials using hashing.
+- Implementing measures against rainbow table attacks and rate-limiting.
+- Two-factor authentication mechanisms and their implementation in Python.
+- Fundamentals of OAuth2.
 
-</aside>
+## Tasks and Deliverables
 
-Embed a robust rate-limiting mechanism in the system to discourage repetitive password guess attempts.
-Impose a mandatory time-out after three consecutive failed login attempts.
-Note: You can test this by attempting to access an API endpoint several times without the correct authentication token, or trying to log in with incorrect credentials
+### (20) Database Integration:
 
-(20) Two-Factor Authentication (2FA):
-<aside> 💡 Remember to document security challenges and mitigations </aside>
+- Integrate a lightweight database (e.g., JSON-based storage or SQLite) for persisting user data.
+- Design efficient database schemas focused on security and optimized for data retrieval and storage.
 
-Incorporate a time-based one-time password (TOTP) system for an enhanced security layer following either the OAuth2 or conventional login. Utilize the pyotp library.
-Upon registration, generate and display a QR code for users, allowing integration with 2FA apps like Google Authenticator.
-During the login phase, request that the user input the TOTP from their authenticator app.
-(20) Understanding the Concepts of OAuth2:
-<aside> 💡 Remember to document security challenges and mitigations. Also here, you can document the benefits of OAuth
+### (20) Basic User Authentication:
 
-Documentation Requirement:
-For each task, detail:
+💡 _**Security Note:** Document security challenges and mitigations._
 
-Security Challenges: Identify challenges related to the specific feature.
-Vulnerabilities & Mitigations: List potential vulnerabilities and ways to counteract them.
-Deliverables:
-Repository or Folder: This should contain code, database schemas, templates, and other vital files.
-Report: Includes:
-Architectural Choices: Why they were made.
-Resources: Libraries, tools, or external resources used and why.
-Challenges & Solutions: Difficulties encountered and how they were resolved.
-Recommendations: Suggestions for further system improvements.
-Evaluation Criteria:
-Functionality: How well the system operates and follows specifications.
-Security Excellence: Adherence to top security practices from the course.
-Code Quality: Organization, readability, and documentation of the code.
-Innovative Features: Additional features enhancing user experience or security.
-Documentation Depth: Clarity and thoroughness in the report and code comments.
-Guidance:
-While striving for a fully functional system, focus on building robust security. Develop with a security-first approach. Best of luck!
+- Implement a standard authentication system for user sign-up with username and password.
+- Securely store credentials in the database using advanced hashing and salting techniques (e.g., bcrypt, hashlib).
+
+### (20) Protection Against Brute Force Attacks:
+
+💡 _**Security Note:** Document security challenges and mitigations._
+
+- Introduce a robust rate-limiting mechanism to prevent password guessing attempts.
+- Implement a mandatory time-out after three consecutive failed login attempts.
+- _Test Case_: Attempt unauthorized access to an API endpoint or log in with incorrect credentials multiple times.
+
+### (20) Two-Factor Authentication (2FA):
+
+💡 _**Security Note:** Document security challenges and mitigations._
+
+- Implement a time-based one-time password (TOTP) system using the pyotp library.
+- Generate and display a QR code for users at registration for integration with apps like Google Authenticator.
+- Require TOTP input from the authenticator app during login.
+
+### (20) Understanding the Concepts of OAuth2:
+
+💡 _**Security Note:** Document security challenges, mitigations, and benefits of OAuth._
+
+- Develop an OAuth2 client using Authorization Code Flow.
+- Securely fetch and store user details from third-party providers in the database.
+
+## Assignment Overview
+
+- Develop a secure web-based API using Flask or similar frameworks.
+- Focus on security, user data protection, error handling, and integration with third-party services.
+
+## Documentation Requirement
+
+For each task, provide:
+
+- **Security Challenges**: Identify and address specific feature-related challenges.
+- **Vulnerabilities & Mitigations**: List potential vulnerabilities and their countermeasures.
+
+## Deliverables
+
+- **Repository or Folder**: Containing code, database schemas, templates, etc.
+- **Report**: Covering architectural choices, resources used, challenges and solutions, and recommendations.
+
+## Evaluation Criteria
+
+- **Functionality**: Adherence to the specified system operations.
+- **Security Excellence**: Following top security practices.
+- **Code Quality**: Focus on organization, readability, and documentation.
+- **Innovative Features**: Extra features enhancing security or user experience.
+- **Documentation Depth**: Clarity and thoroughness in both report and code comments.
+
+## Guidance
+
+While aiming for functionality, prioritize building robust security with a security-first approach. Best of luck!
